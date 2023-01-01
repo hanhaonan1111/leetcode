@@ -8,10 +8,19 @@
  * 返回执行上述操作后的答案。
  * 
  */
-
-
 var deleteGreatestValue = function (grid) {
-
+    let res = 0
+    while (grid[0].length > 0) {
+        let dels = []
+        for (let i = 0; i < grid.length; i++) {
+            let row = grid[i]
+            let delNum = row.splice(row.findIndex(v => v === Math.max(...row)), 1)[0]
+            dels.push(delNum)
+        }
+        res += Math.max(...dels)
+    }
+    console.log(res);
+    return res
 };
 
-deleteGreatestValue([[1, 2, 4], [3, 3, 1]])
+deleteGreatestValue([[10]])
