@@ -39,7 +39,7 @@ let mergeNodes1 = function (head) {
     return head.next ? head.next : null
 };
 // 法2:(模拟)创新版
-let mergeNodes = function (head) {
+let mergeNodes2 = function (head) {
     let total = 0
     let tail = new ListNode(-1)
     let tailNode = tail
@@ -55,6 +55,28 @@ let mergeNodes = function (head) {
         total = total + head?.val
     }
     return tail.next
+};
+// 法3 :  快慢指针
+let mergeNodes = function (head) {
+    let fast = head.next
+    let slow = head
+    let slowest = slow
+    let total = 0
+    while (fast) {
+        if (!fast.next) {
+            slow.next = null
+        }
+        if (fast.val !== 0) {
+            total += fast.val
+        } else {
+            slow.val = total
+            slow = slow.next
+            slowest = slowest.next
+            total = 0
+        }
+        fast = fast.next
+    }
+    return head
 };
 // 测试数据
 let node = new ListNode(0, new ListNode(1, new ListNode(0, new ListNode(9, new ListNode(
