@@ -63,6 +63,7 @@ let mergeNodes = function (head) {
     let slowest = slow
     let total = 0
     while (fast) {
+        // 如果快指针下一个项目为null,则将慢指针指向的下一个为null
         if (!fast.next) {
             slow.next = null
         }
