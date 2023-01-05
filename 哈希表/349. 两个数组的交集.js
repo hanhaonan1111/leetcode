@@ -2,15 +2,49 @@
 素一定是 唯一 的。我们可以 不考虑输出结果的顺序 。*/
 
 
-// 法1
-var intersection = function (num1, num2) {
-    console.log(num1, num2);
-    let count = num1.length > num2.length ? num1.length
+// 法1 耗时操作
+var intersection1 = function (num1, num2) {
+    let t1 //长度短的那个
+    let t2
+    if (num1.length < num2.length) {
+        t1 = num1
+        t2 = num2
+    } else {
+        t1 = num2
+        t2 = num1
+    }
+    let set = new Set()
+    for (let i = 0; i < t1.length; i++) {
+        let ele = t1[i]
+        let res = t2.findIndex(v => v === ele)
+        if (res !== -1) {
+            set.add(ele)
+        }
+    }
+    return Array.from(set)
+};
 
+// 法2:"秀"操作
+var intersection2 = function (num1, num2) {
+    return Array.from(new Set(num1.filter(v => num2.includes(v))))
+};
+
+// 法3:排序+双指针
+var intersection = function (num1, num2) {
+    num1.sort((a, b) => a - b)
+    num2.sort((a, b) => a - b)
+    // length 
+    let len1 = num1.length
+    let len2 = num2.length
+    //
 
 
 };
-intersection([1, 2, 2, 1], [2, 2])
+
+
+// 测试数据
+let res = intersection([1, 2, 2, 1], [2, 2, 8, 9, 6, 4, 5])
+console.log(res);
 
 
 
