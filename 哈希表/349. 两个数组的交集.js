@@ -33,15 +33,25 @@ var intersection2 = function (num1, num2) {
 var intersection = function (num1, num2) {
     num1.sort((a, b) => a - b)
     num2.sort((a, b) => a - b)
-    // length 
     let len1 = num1.length
     let len2 = num2.length
-    //
-
-
+    let index1 = 0, index2 = 0
+    let res = new Set()
+    while (index1 < len1 && index2 < len2) {
+        let t1 = num1[index1]
+        let t2 = num2[index2]
+        if (t1 === t2) {
+            res.add(t2)
+            index1++
+            index2++
+        } else if (t1 > t2) {
+            index2++
+        } else {
+            index1++
+        }
+    }
+    return res
 };
-
-
 // 测试数据
 let res = intersection([1, 2, 2, 1], [2, 2, 8, 9, 6, 4, 5])
 console.log(res);
