@@ -2,6 +2,7 @@
 素一定是 唯一 的。我们可以 不考虑输出结果的顺序 。*/
 
 
+// 法1
 var intersection = function (num1, num2) {
     console.log(num1, num2);
 
@@ -9,8 +10,6 @@ var intersection = function (num1, num2) {
 
 
 };
-
-
 intersection([1, 2, 2, 1], [2, 2])
 
 
