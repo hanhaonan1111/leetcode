@@ -5,7 +5,7 @@
 // 法1
 var intersection = function (num1, num2) {
     console.log(num1, num2);
-
+    let count = num1.length > num2.length ? num1.length
 
 
 
