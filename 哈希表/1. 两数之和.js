@@ -17,17 +17,20 @@ var twoSum1 = function (nums, target) {
         }
     }
 };
-// 法2
-// var twoSum = function (nums, target) {
-//     let map = new Map();
-//     for (var i = 0; i < nums.length - 1; i++) {
-//         if (map.has(nums[i])) {
-//             return [map.get(nums[i]), i];
-//         } else {
-//             map.set(target - nums[i], i)
-//         }
-//     }
-// }
+// 法2 哈希表
+var twoSum = function (nums, target) {
+    let map = new Map()
+    for (let i = 0; i < nums.length; i++) {
+        if (map.has(nums[i])) {
+            //当前数字是否是之前某个数字所需要的值,是则返回!
+            return [map.get(nums[i]), i]
 
-let res = twoSum([3, 3], 6)
+        } else {
+            // 将索引对应需要的数字和索引存放入哈希表
+            map.set(target - nums[i], i)
+        }
+    }
+}
+
+let res = twoSum([2, 7, 11, 15], 9)
 console.log(res, 'resUlt');
