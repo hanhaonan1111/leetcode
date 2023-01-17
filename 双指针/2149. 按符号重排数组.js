@@ -7,37 +7,28 @@
 重排元素满足上述条件后，返回修改后的数组。
  */
 
-// 正式代码
+// 法1：双指针
+/**
+ * 使用2个指针，一个指向正数，另一个指向负数。
+ * 准备一个空数组
+ * 
+ */
 function rearrangeArray(nums) {
-    if (nums[0] < 0) {
-        let other
-        other = nums[1]
-        nums[1] = nums[0]
-        nums[0] = other
-    }
-
-    let index
-    for (let left = 0; left < nums.length - 2; left++) {
-        index = null
-        let right = left + 1
-        let leftVal = nums[left];
-        let rightVal = nums[right];
-        index = right // 记录索引
-        if (leftVal * rightVal > 0) {
-            while (leftVal * rightVal > 0) {
-                right++
-                rightVal = nums[right]
-            }
-            let other
-            other = nums[right]
-            nums[right] = nums[index]
-            nums[index] = other
+    let res = new Array(nums.length)
+    let start = 0
+    let end = 1
+    for (const val of nums) {
+        if (val > 0) {
+            res[start] = val
+            start = start + 2 // 固定正数的位置
+        } else {
+            res[end] = val
+            end = end + 2
         }
     }
-
-    return nums
+    return res
 };
-//  暴力解法
+// 法2： 暴力解法
 function rearrangeArray1(li) {
     let z = []
     let fu = []
