@@ -10,7 +10,6 @@ function TreeNode(val, left, right) {
 var invertTree = function (node) {
     function Recursion(node) {
         if (node.left || node.right) {
-            // 两个都节点不存在  回朔 
             let other
             other = node.left
             node.left = node.right
