@@ -6,8 +6,9 @@ function TreeNode(val, left, right) {
     this.right = (right === undefined ? null : right)
 }
 
-//正式数据
-var invertTree = function (node) {
+//正式代码
+// 法1 :广度优先
+var invertTree1 = function (node) {
     function Recursion(node) {
         if (node.left || node.right) {
             let other
@@ -25,6 +26,30 @@ var invertTree = function (node) {
         return node
     }
 };
+
+// 法2:广度优先
+var invertTree = function (node) {
+    if (!node) { return node }
+    let queue = [node]
+    while (queue.length > 0) {
+        let len = queue.length
+        for (let i = 0; i < len; i++) {
+            let head = queue.shift()
+            let other
+            other = head.left
+            head.left = head.right
+            head.right = other
+            if (head.left) {
+                queue.push(head.left)
+            }
+            if (head.right) {
+                queue.push(head.right)
+            }
+        }
+    }
+    return node
+};
+
 // 测试数据
 let root = new TreeNode(1,
     new TreeNode(0, new TreeNode(5, new TreeNode(7), new TreeNode(12)), new TreeNode(8)),
