@@ -29,7 +29,7 @@ var maxDepth1 = function (root) {
     return count
 };
 
-// 法2:递归
+// 法2:递归 绕得很
 function maxDepth(root) {
     if (!root) return 0
     function Digui(node) {
