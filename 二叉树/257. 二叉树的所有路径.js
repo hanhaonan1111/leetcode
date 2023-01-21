@@ -37,9 +37,31 @@ var binaryTreePaths1 = function (root) {
 
 };
 
-// 递归法
+// 法2:深度优先(递归)
 function binaryTreePaths(node) {
-
+    if (!root) return root
+    let queue = []
+    let routes = []
+    function DG(node, routes, queue) {
+        if (node.left) {
+            queue.push(node.val)
+            DG(node.left, routes, queue)
+            queue.pop()// 每一次之行结束,进行一次回溯
+        }
+        if (node.right) {
+            queue.push(node.val)
+            DG(node.right, routes, queue)
+            queue.pop() // 每一次之行结束,进行一次回溯
+        }
+        if (!node.left && !node.right) {
+            queue.push(node.val)
+            routes.push(queue.join('->'))
+            queue.pop()// 每一次之行结束,进行一次回溯
+            return
+        }
+    }
+    DG(node, routes, queue)
+    return routes
 }
 // 测试数据
 let root = new TreeNode(1, new TreeNode(0, null, new TreeNode(8)), new TreeNode(-9))
