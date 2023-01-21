@@ -10,7 +10,7 @@ function TreeNode(val, left, right) {
 
 //正式代码 
 // 法1:广度优先算法
-function minDepth(root) {
+function minDepth1(root) {
     if (!root) return root
     let queue = [root]
     let count = 0
@@ -30,14 +30,23 @@ function minDepth(root) {
 };
 
 // 法2:深度优先算法!
+function minDepth(root) {
+    let count = 1
+    function Dg(node) {
+        if (!node.left && !node.right) {
+            return
+        }
+        let left = Dg(node.left)
+        let right = Dg(node.right)
+        Math.min(left, right)
 
-
-
+    }
+    Dg(root)
+};
 
 // 测试数据
 let root = new TreeNode(1,
     new TreeNode(2, new TreeNode(15), new TreeNode(7)),
     new TreeNode(3))
-console.log(root);
 let res = minDepth(root)
 console.log(res)
