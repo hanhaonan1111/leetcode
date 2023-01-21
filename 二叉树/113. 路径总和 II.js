@@ -42,11 +42,38 @@ function pathSum1(node, target) {
 
 //法2:深度优先
 function pathSum(node, t) {
-
+    if (!node) return []
+    // 根节点存在
+    let route = [node.val] // 用于存放所有的路径
+    let count = node.val // 用于计数
+    let res = [] // 存放结果
+    function DG(node, route, count) {
+        if (!node.left && !node.right && t === count) {
+            res.push([...route])
+            return
+        }
+        if (node.left) {
+            count += node.left.val
+            route.push(node.left.val)
+            DG(node.left, route, count)
+            count -= node.left.val
+            route.pop()
+        }
+        if (node.right) {
+            count += node.right.val
+            route.push(node.right.val)
+            DG(node.right, route, count)
+            count -= node.right.val
+            route.pop()
+        }
+    }
+    DG(node, route, count)
+    return res
 }
 
 // 测试数据
 let root = new TreeNode(1, new TreeNode(2, new TreeNode(15), new TreeNode(7)),
     new TreeNode(9))
 let res = pathSum(root, 10)
+
 console.log(res);
