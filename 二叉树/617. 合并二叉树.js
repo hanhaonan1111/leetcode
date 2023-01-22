@@ -13,7 +13,7 @@ function TreeNode(val, left, right) {
 //正式代码
 // 法1:广度优先
 // 在原来的书上进行修复即可!
-var mergeTrees = function (root1, root2) {
+var mergeTrees1 = function (root1, root2) {
     if (!root1) return root2
     if (!root2) return root1
 
@@ -46,9 +46,86 @@ var mergeTrees = function (root1, root2) {
     }
     return root1
 };
+// 同上
+function mergeTrees2(r1, r2) {
+    if (!r1) { return r2 }
+    if (!r2) { return r1 }
+    let queue = [r1, r2]
+    while (queue.length) {
+        let n1 = queue.shift()
+        let n2 = queue.shift()
+
+        n2.val += n1.val
+        if (n1.left && n2.left) {
+            queue.push(n1.left, n2.left)
+        }
+        if (n1.right && n2.right) {
+            queue.push(n1.right, n2.right)
+        }
+        if (n1.left && !n2.left) {
+            n2.left = n1.left
+        }
+        if (n1.right && !n2.right) {
+            n2.right = n1.right
+        }
+
+
+    }
+    return r2
+
+
+}
 
 
 
+// 法2:深度优先(递归)
+function mergeTrees4(r1, r2) {
+    if (!r1) return r2
+    if (!r2) return r1
+    // 走到这里说明r1和r2都没有问题
+    function DG(r1, r2) {
+        if (r1.left && r2.left) {
+            DG(r1.left, r2.left)
+        }
+        if (r1.right && r2.right) {
+            DG(r1.right, r2.right)
+        }
+        if (!r1.left && r2.left) {
+            r1.left = r2.left
+        }
+        if (!r1.right && r2.right) {
+            r1.right = r2.right
+        }
+        r1.val += r2.val
+
+    }
+    DG(r1, r2)
+    console.log(r1);
+    return r1
+}
+//优化
+/**
+ * 递归三部曲:
+ *      1.确定入参
+ *      2.确定终止条件
+ *      3.确定单层的逻辑
+ */
+function mergeTrees(r1, r2) {
+    if (!r1) return r2
+    if (!r2) return r1
+    function DG(r1, r2) {
+        if (!r1 && r2) {
+            return r2
+        }
+        if (!r2) { return r1 }
+        r1.val += r2.val
+        r1.left = DG(r1.left, r2.left)
+        r2.right = DG(r1.right, r2.right)
+        return r1
+
+    }
+    return DG(r1, r2)
+}
 // 测试数据
 let root1 = new TreeNode(1,
     new TreeNode(2, new TreeNode(15, new TreeNode(16, new TreeNode(17),),), new TreeNode(7)),
@@ -56,4 +133,5 @@ let root1 = new TreeNode(1,
 let root2 = new TreeNode(1,
     new TreeNode(2, new TreeNode(15, new TreeNode(16, new TreeNode(17),),), new TreeNode(7)),
     new TreeNode(3, new TreeNode(15,),))
-mergeTrees(root1, root2)
+let res = mergeTrees(root1, root2)
+console.log(res);
