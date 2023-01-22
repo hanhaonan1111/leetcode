@@ -10,7 +10,7 @@ function TreeNode(val, left, right) {
 }
 //正式代码
 // 法1:广度优先(迭代)
-var searchBST1 = function (root, val) {
+function searchBST1(root, val) {
     if (!root) return root
     let queue = [root]
     while (queue.length) {
@@ -24,12 +24,24 @@ var searchBST1 = function (root, val) {
     }
     return null
 };
-
+//使用二叉搜索树的特性进行迭代
+function searchBST(node, val) {
+    while (node) {
+        if (node.val > val) {
+            node = node.left
+        } else if (node.val < val) {
+            node = node.right
+        } else {
+            return node
+        }
+    }
+    return null
+}
 // 法2:深度优先(递归)
 /**
  * 递归三要素: 1.确定入参  2.确定结束条件  3.确定单层逻辑
  */
-function searchBST(r, val) {
+function searchBST3(r, val) {
     if (!r) return r
     function DG(r) {
         if (!r) return null
@@ -50,5 +62,5 @@ let root1 = new TreeNode(4,
     new TreeNode(2, new TreeNode(1), new TreeNode(3)),
     new TreeNode(7))
 
-let res = searchBST(root1, 7)
+let res = searchBST(root1, 67)
 console.log(res);
