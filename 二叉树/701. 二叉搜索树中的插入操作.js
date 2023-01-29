@@ -11,7 +11,7 @@ function TreeNode(val, left, right) {
 }
 //正式代码
 // 法1:递归
-var insertIntoBST = function (root, val) {
+var insertIntoBST1 = function (root, val) {
     if (!root) return new TreeNode(val)
     function DG(node, val) {
         // 中
@@ -35,10 +35,33 @@ var insertIntoBST = function (root, val) {
     DG(root, val)
     return root
 };
+// 法2:递归
+function insertIntoBST(root, val) {
+    if (!root) return new TreeNode(val)
+    let node = root
 
+    while (node) {
+        father = node
+        if (node.val < val) {
+            if (node.right) {
+                node = node.right
+            } else {
+                node.right = new TreeNode(val)
+                node = null
+            }
+        } else {
+            if (node.left) { node = node.left }
+            else {
+                node.left = new TreeNode(val)
+                node = null
+            }
+        }
+    }
+    return root
+}
 //测试数据
 let root = new TreeNode(4,
     new TreeNode(2, new TreeNode(1), new TreeNode(3)),
     new TreeNode(7))
 let res = insertIntoBST(root, 5)
-console.log(res);
+console.log(res);          
