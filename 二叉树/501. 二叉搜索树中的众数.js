@@ -13,7 +13,7 @@ function TreeNode(val, left, right) {
 }
 //正式代码
 //法1:广度优先 
-var findMode = function (root) {
+var findMode1 = function (root) {
     let map = new Map()
 
     let queue = [root]
@@ -38,10 +38,46 @@ var findMode = function (root) {
     })
     return res
 };
+// 法2:递归+双指针
+function findMode(root) {
+    let res = []
+    let cur = root
+    let pre = null
+    let count = 1
+    let maxCount = 1
+    function address(root) {
+        cur = root
+        if (!pre) { count = 1 } // 最左边节点
+        else if (cur.val === pre.val) {
+            // 相等了
+            count++
+        } else {
+            count = 1
+        }
+        pre = cur
 
+        if (count === maxCount) {
+            res.push(cur.val);
+        } else if (count > maxCount) {
+            maxCount = count
+            res = []
+            res.push(cur.val)
+        }
+    }
+
+    function DG(root) {
+        if (!root) return
+        DG(root.left)
+        address(root)
+        DG(root.right)
+    }
+    DG(root)
+    return res
+}
 //测试数据
-let root1 = new TreeNode(15,
-    new TreeNode(5, new TreeNode(15)),
-    new TreeNode(5, new TreeNode(5), new TreeNode(15)))
+let root1 = new TreeNode(1,
+    null,
+    new TreeNode(2, new TreeNode(2)))
+
 let res = findMode(root1)
 console.log(res);
