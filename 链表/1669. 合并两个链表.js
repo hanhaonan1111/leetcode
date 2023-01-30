@@ -7,33 +7,7 @@ function ListNode(val, next) {
     this.val = (val === undefined ? 0 : val)
     this.next = (next === undefined ? null : next)
 }
-// 正式代码
-var mergeInBetween1 = function (list1, a, b, list2) {
-    let index = 0
-    let pre = list1 // 前一位
-    while (index < a - 1) {
-        pre = pre.next
-        index++
-    }
-    index = 0
-    a_fter = list1
-    while (index < b) {
-        a_fter = a_fter.next
-        index++
-    }
-    pre.next = list2
-
-    let after = list2 // b的尾部节点
-    while (after.next) {
-        after = after.next
-    }
-    after.next = a_fter.next
-
-    return list1
-};
-
-
-//改进
+//方法 :模拟->双指针
 var mergeInBetween = function (list1, a, b, list2) {
     let index = 0
     let a_fter = list1 // 前一位
